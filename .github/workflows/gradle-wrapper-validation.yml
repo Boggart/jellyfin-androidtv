@@ -1,5 +1,5 @@
 name: "Validate Gradle Wrapper"
-on: [push, pull_request]
+on: [commit, push, pull_request]
 
 jobs:
   validation:
@@ -8,3 +8,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: gradle/wrapper-validation-action@v1
+      - name: build
+        run: build.sh
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: jellyfin-test
+          path: bin
+      
